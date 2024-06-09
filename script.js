@@ -1,0 +1,32 @@
+//https://rossclay.github.io/odin-tic-tac-toe/
+
+function gameBoard() {
+    const rows = 3;
+    const columns = 3;
+    const gameBoardArray = [];
+
+    for(let i = 0; i < rows; i++){
+        gameBoardArray[i] = [];
+        for(let j = 0; j < columns; j++){
+            gameBoardArray[i].push(0);
+        }
+    }
+    console.log(gameBoardArray);
+}
+
+function Block() {
+    const value = 0;
+
+    const addToken = (player) => {
+        value = player;
+    };
+
+    const getValue = () => value;
+
+    return {
+        addToken, 
+        getValue,
+    };
+}
+
+gameBoard();
