@@ -24,7 +24,7 @@
 //     const getValue = () => value;
 
 //     return {
-//         addToken, 
+//         addToken,
 //         getValue,
 //     };
 // }
@@ -32,14 +32,39 @@
 // gameBoard();
 
 const gameboard = (function () {
-    const gameboardArray = [];
-    let index = 0;
-    const rows = 3, columns = 3;
-    for(let i = 0; i < rows; i++){
-        for(let j = 0; j < columns; j++){
-            gameboardArray.push(++index);
-        }
+  const gameboardArray = [];
+  let index = 0;
+  const rows = 3,
+    columns = 3;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      gameboardArray.push(++index);
     }
-    console.log(gameboardArray);
+  }
+
+  return {
+    gameboardArray,
+  };
 })();
 
+console.log(gameboard);
+
+const players = (function () {
+  const playerOne = playerInvocation();
+  const playerTwo = playerInvocation();
+  return {
+    playerOne,
+    playerTwo,
+  };
+})();
+
+console.log(players);
+
+function playerInvocation() {
+  return {
+    turn: "",
+    score: "",
+    chancesPlayed: "",
+    firstMoveTurn: "",
+  };
+}
