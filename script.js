@@ -98,7 +98,6 @@ function playRound(playerTurn, character){
   let chance = Number(prompt(`Player ${playerTurn}: `));
   gameboard.gameboardArray[chance-1] = `${chance}${character}`;
 
-  console.log(chance, character);
   return;
 };
 
@@ -109,7 +108,35 @@ function togglePlayerTurn(turn){
 }
 
 function matchConditions(player){
-  
+  let match = undefined, winner;
+
+  if(player === 1){
+    winningConditionsPlayerOne.forEach((conditions) => {
+      match = conditions.every((element) => {
+        console.log("HEYYYYYYYY!!!!");
+        return gameboard.gameboardArray.indexOf(element) >= 0;
+      })
+
+      if(match !== undefined) winner = 1;
+      else match = undefined;
+    })
+  }
+
+  else if(player === 2){
+    winningConditionsPlayerTwo.forEach((conditions) => {
+      match = conditions.every((element) => {
+        return gameboard.gameboardArray.indexOf(element) >= 0;
+      })
+
+      if(match !== undefined) winner = 2;
+      else match = undefined;
+    })
+  }
+
+  if(winner === 1 || winner === 2){
+    return winner;
+  }
+  else return false;
 }
 
 function checkForWin(){
@@ -117,7 +144,7 @@ function checkForWin(){
   console.log("\nInside Check For Win.\n");
 
   if (matchConditions(1)) return 1;
-  else if (winningConditionsPlayerTwo.forEach((conditions) => (gameboard.gameboardArray.find(conditions)))) return 2;
+  else if (matchConditions(2)) return 2;
   else playGame();
 }
 
@@ -133,7 +160,6 @@ function playGame(){
   playRound(turn, character);
 
   turn = togglePlayerTurn(turn);
-  console.log("Turn = ", turn);
 
   let winCondition = checkForWin();
 
