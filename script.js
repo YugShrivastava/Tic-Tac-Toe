@@ -108,35 +108,17 @@ function togglePlayerTurn(turn){
 }
 
 function matchConditions(player){
-  let match = undefined, winner;
-
+  let matches = 0;
   if(player === 1){
     winningConditionsPlayerOne.forEach((conditions) => {
-      match = conditions.every((element) => {
-        console.log("HEYYYYYYYY!!!!");
-        return gameboard.gameboardArray.indexOf(element) >= 0;
+      conditions.forEach(element => {
+        if(gameboard.gameboardArray.indexOf(element) >= 0){
+          matches++;
+        }
+        else matches = 0;
       })
-
-      if(match !== undefined) winner = 1;
-      else match = undefined;
     })
-  }
-
-  else if(player === 2){
-    winningConditionsPlayerTwo.forEach((conditions) => {
-      match = conditions.every((element) => {
-        return gameboard.gameboardArray.indexOf(element) >= 0;
-      })
-
-      if(match !== undefined) winner = 2;
-      else match = undefined;
-    })
-  }
-
-  if(winner === 1 || winner === 2){
-    return winner;
-  }
-  else return false;
+  }  
 }
 
 function checkForWin(){
