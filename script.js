@@ -122,7 +122,7 @@ function matchConditions(player){
 }
 
 function checkForWin(){
-
+  
   console.log("\nInside Check For Win.\n");
 
   if (matchConditions(1)) return 1;
