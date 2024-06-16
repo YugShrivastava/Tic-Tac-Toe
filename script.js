@@ -155,7 +155,7 @@ function checkForWin() {
 }
 
 function afterTheGame(text, winner = undefined){
-  
+
 }
 
 function winnerDisplay(winnerPlayer) {
@@ -195,6 +195,8 @@ function playGame(chance) {
 
 const gridWrapper = document.querySelector(".gridWrapper");
 const gridItems = document.querySelectorAll(".gridItems");
+const dialog = document.querySelector("dialog");
+
 
 gridItems.forEach((Items) => {
   Items.addEventListener("click", () => {
