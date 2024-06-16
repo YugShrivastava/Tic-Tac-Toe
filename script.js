@@ -184,4 +184,4 @@ function playGame() {
   roundNumber = 0;
 }
 
-console.log(playGame());
+// console.log(playGame());
