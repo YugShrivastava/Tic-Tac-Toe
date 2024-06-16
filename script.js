@@ -32,28 +32,29 @@
 // gameBoard();
 
 const winningConditionsPlayerOne = [
-  ['1x', '2x', '3x'],
-  ['1x', '4x', '7x'],
-  ['1x', '5x', '9x'],
-  ['2x', '5x', '8x'],
-  ['3x', '5x', '7x'],
-  ['3x', '6x', '9x'],
-  ['4x', '5x', '6x'],
-  ['7x', '8x', '9x']
-]
+  ["1x", "2x", "3x"],
+  ["1x", "4x", "7x"],
+  ["1x", "5x", "9x"],
+  ["2x", "5x", "8x"],
+  ["3x", "5x", "7x"],
+  ["3x", "6x", "9x"],
+  ["4x", "5x", "6x"],
+  ["7x", "8x", "9x"],
+];
 
 const winningConditionsPlayerTwo = [
-  ['1o', '2o', '3o'],
-  ['1o', '4o', '7o'],
-  ['1o', '5o', '9o'],
-  ['2o', '5o', '8o'],
-  ['3o', '5o', '7o'],
-  ['3o', '6o', '9o'],
-  ['4o', '5o', '6o'],
-  ['7o', '8o', '9o']
-]
+  ["1o", "2o", "3o"],
+  ["1o", "4o", "7o"],
+  ["1o", "5o", "9o"],
+  ["2o", "5o", "8o"],
+  ["3o", "5o", "7o"],
+  ["3o", "6o", "9o"],
+  ["4o", "5o", "6o"],
+  ["7o", "8o", "9o"],
+];
 
-let roundNumber = 0;
+let roundNumber = 0,
+  checkForWinFlag = 0;
 let turn = 1;
 
 const gameboard = (function () {
@@ -94,50 +95,79 @@ function playerInvocation() {
   };
 }
 
-function playRound(playerTurn, character){
+function playRound(playerTurn, character) {
   let chance = Number(prompt(`Player ${playerTurn}: `));
-  gameboard.gameboardArray[chance-1] = `${chance}${character}`;
-
-  return;
-};
-
-function togglePlayerTurn(turn){
-  console.log("Turn = ", turn)
-  if(turn == 1) return 2;
-  else if(turn == 2) return 1;
+  if (gameboard.gameboardArray[chance - 1] == chance) {
+    gameboard.gameboardArray[chance - 1] = `${chance}${character}`;
+    console.log(`Move of ${playerTurn} = ${chance}${character}`);
+    return;
+  } else {
+    console.log("already filled!!");
+    playRound(playerTurn, character);
+  }
 }
 
-function matchConditions(player){
-  let matches = 0;
-  if(player === 1){
+function togglePlayerTurn(turn) {
+  console.log("Turn = ", turn);
+  if (turn == 1) return 2;
+  else if (turn == 2) return 1;
+}
+
+function matchConditions(player) {
+  let matches = 0,
+    match = 0;
+  if (player === 1) {
     winningConditionsPlayerOne.forEach((conditions) => {
-      conditions.forEach(element => {
-        if(gameboard.gameboardArray.indexOf(element) >= 0){
+      conditions.forEach((element) => {
+        if (gameboard.gameboardArray.indexOf(element) >= 0) {
           matches++;
-        }
-        else matches = 0;
-      })
-    })
-  }  
+        } else matches = 0;
+        if (matches === 3) match++;
+      });
+      matches = 0;
+    });
+  } else if (player === 2) {
+    winningConditionsPlayerTwo.forEach((conditions) => {
+      conditions.forEach((element) => {
+        if (gameboard.gameboardArray.indexOf(element) >= 0) {
+          matches++;
+        } else matches = 0;
+        if (matches === 3) match++;
+      });
+      matches = 0;
+    });
+  }
+
+  if (match !== 0) return true;
+  else return false;
 }
 
-function checkForWin(){
-  
+function checkForWin() {
   console.log("\nInside Check For Win.\n");
 
   if (matchConditions(1)) return 1;
   else if (matchConditions(2)) return 2;
-  else playGame();
+  else {
+    if (roundNumber === 9) {
+      checkForWinFlag = 1;
+      return false;
+    }
+    else playGame();
+  }
 }
 
-function playGame(){
+function winnerDisplay(winnerPlayer) {
+  console.log("winner = ", winnerPlayer);
+}
+
+function playGame() {
   roundNumber++;
   console.log("Round No. = ", roundNumber);
 
   let character;
 
-  if(turn == 1) character = 'x';
-  else if(turn ==2) character = 'o';
+  if (turn == 1) character = "x";
+  else if (turn == 2) character = "o";
 
   playRound(turn, character);
 
@@ -145,10 +175,13 @@ function playGame(){
 
   let winCondition = checkForWin();
 
-  if(winCondition) return winnerDisplay(winCondition);
-  else{
-    console.log('ERROR IN ELSE CONDITION OF PLAY GAME');
+  if (winCondition) return winnerDisplay(winCondition);
+  else {
+    console.log("ERROR IN ELSE CONDITION OF PLAY GAME");
   }
+  if (roundNumber === 9 && checkForWinFlag === 1) return "DRAW";
+
+  roundNumber = 0;
 }
 
-playGame();
+console.log(playGame());
