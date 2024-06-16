@@ -54,7 +54,9 @@ const winningConditionsPlayerTwo = [
 ];
 
 let roundNumber = 0,
-  checkForWinFlag = 0;
+  checkForWinFlag = 0,
+  score1 = 0,
+  score2 = 0;
 let turn = 1;
 
 
@@ -160,11 +162,27 @@ function checkForWin() {
 }
 
 function replay(winner = undefined){
-  
-
-  if(winner === undefined){
-
+  if(winner !== undefined){
+    turn = winner;
+    if(winner == 1) score1++;
+    else if(winner == 2) score2++;
+    const h2 = document.querySelector("h2");
+    h2.innerHTML = `Score X: ${score1}<br>Score O: ${score2}`;
   }
+
+  const replay = document.querySelector("button")
+  replay.addEventListener("click", () => {
+    dialog.close();
+    gridItems.forEach((Items) => {
+      Items.innerHTML = "";
+      winner = undefined;
+      for(let i = 0; i < 9; i++){
+        gameboard.gameboardArray[i] = i+1;
+      }
+    })
+  })  
+
+  roundNumber = 0;
 }
 
 function winnerDisplay(winnerPlayer) {

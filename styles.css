@@ -25,6 +25,11 @@ button{
     font-size: 1.5rem;
 }
 
+h2{
+    position: absolute;
+    left: 10%;
+    top: 20%;
+}
 
 body{
     padding-top: 20px;
