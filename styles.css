@@ -26,6 +26,12 @@ h1{
     height: 450px;
 }
 
+.gridItems{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .one{
     box-shadow: 1px 1px;
 }
@@ -49,4 +55,9 @@ h1{
 }
 .nine{
     box-shadow: 1px 1px inset;
+}
+
+#XO{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 8rem;
 }

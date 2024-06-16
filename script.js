@@ -95,8 +95,7 @@ function playerInvocation() {
   };
 }
 
-function playRound(playerTurn, character) {
-  let chance = Number(prompt(`Player ${playerTurn}: `));
+function playRound(playerTurn, character, chance) {
   if (gameboard.gameboardArray[chance - 1] == chance) {
     gameboard.gameboardArray[chance - 1] = `${chance}${character}`;
     console.log(`Move of ${playerTurn} = ${chance}${character}`);
@@ -151,16 +150,24 @@ function checkForWin() {
     if (roundNumber === 9) {
       checkForWinFlag = 1;
       return false;
-    }
-    else playGame();
+    } else console.log("Else part of check for win...");
   }
 }
 
+function afterTheGame(text, winner = undefined){
+  
+}
+
 function winnerDisplay(winnerPlayer) {
+  turn = winnerPlayer;
   console.log("winner = ", winnerPlayer);
 }
 
-function playGame() {
+function drawDisplay(){
+
+}
+
+function playGame(chance) {
   roundNumber++;
   console.log("Round No. = ", roundNumber);
 
@@ -169,7 +176,7 @@ function playGame() {
   if (turn == 1) character = "x";
   else if (turn == 2) character = "o";
 
-  playRound(turn, character);
+  playRound(turn, character, chance);
 
   turn = togglePlayerTurn(turn);
 
@@ -179,9 +186,28 @@ function playGame() {
   else {
     console.log("ERROR IN ELSE CONDITION OF PLAY GAME");
   }
-  if (roundNumber === 9 && checkForWinFlag === 1) return "DRAW";
-
-  roundNumber = 0;
+  if (roundNumber === 9 && checkForWinFlag === 1) {
+    drawDisplay();
+  }
 }
 
 // console.log(playGame());
+
+const gridWrapper = document.querySelector(".gridWrapper");
+const gridItems = document.querySelectorAll(".gridItems");
+
+gridItems.forEach((Items) => {
+  Items.addEventListener("click", () => {
+    if (Items.innerHTML) {
+      alert("You cannot overwrite existing character.")
+    } 
+    else {
+      let chance = Items.getAttribute("id");
+
+      if (turn == 1) Items.innerHTML = '<p id="XO">X</p>';
+      else if (turn == 2) Items.innerHTML = '<p id="XO">O</p>';
+
+      playGame(chance);
+    }
+  });
+});
