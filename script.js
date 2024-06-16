@@ -80,7 +80,7 @@ const gameboard = (function () {
   };
 })();
 
-console.log(gameboard.gameboardArray);
+
 
 const players = (function () {
   const playerOne = playerInvocation();
@@ -91,7 +91,6 @@ const players = (function () {
   };
 })();
 
-console.log(players);
 
 function playerInvocation() {
   return {
@@ -105,16 +104,13 @@ function playerInvocation() {
 function playRound(playerTurn, character, chance) {
   if (gameboard.gameboardArray[chance - 1] == chance) {
     gameboard.gameboardArray[chance - 1] = `${chance}${character}`;
-    console.log(`Move of ${playerTurn} = ${chance}${character}`);
     return;
   } else {
-    console.log("already filled!!");
     playRound(playerTurn, character);
   }
 }
 
 function togglePlayerTurn(turn) {
-  console.log("Turn = ", turn);
   if (turn == 1) return 2;
   else if (turn == 2) return 1;
 }
@@ -149,7 +145,6 @@ function matchConditions(player) {
 }
 
 function checkForWin() {
-  console.log("\nInside Check For Win.\n");
 
   if (matchConditions(1)) return 1;
   else if (matchConditions(2)) return 2;
@@ -157,7 +152,7 @@ function checkForWin() {
     if (roundNumber === 9) {
       checkForWinFlag = 1;
       return false;
-    } else console.log("Else part of check for win...");
+    }
   }
 }
 
@@ -200,7 +195,6 @@ function drawDisplay(){
 
 function playGame(chance) {
   roundNumber++;
-  console.log("Round No. = ", roundNumber);
 
   let character;
 
@@ -214,9 +208,6 @@ function playGame(chance) {
   let winCondition = checkForWin();
 
   if (winCondition) return winnerDisplay(winCondition);
-  else {
-    console.log("ERROR IN ELSE CONDITION OF PLAY GAME");
-  }
   if (roundNumber === 9 && checkForWinFlag === 1) {
     drawDisplay();
   }
@@ -229,7 +220,7 @@ function playGame(chance) {
 gridItems.forEach((Items) => {
   Items.addEventListener("click", () => {
     if (Items.innerHTML) {
-      alert("You cannot overwrite existing character.")
+      alert("Oops! That place is already taken. Try another spot.");
     } 
     else {
       let chance = Items.getAttribute("id");
