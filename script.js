@@ -57,6 +57,11 @@ let roundNumber = 0,
   checkForWinFlag = 0;
 let turn = 1;
 
+
+const gridWrapper = document.querySelector(".gridWrapper");
+const gridItems = document.querySelectorAll(".gridItems");
+const dialog = document.querySelector("dialog");
+
 const gameboard = (function () {
   const gameboardArray = [];
   let index = 0;
@@ -154,17 +159,25 @@ function checkForWin() {
   }
 }
 
-function afterTheGame(text, winner = undefined){
+function replay(winner = undefined){
+  
 
+  if(winner === undefined){
+
+  }
 }
 
 function winnerDisplay(winnerPlayer) {
   turn = winnerPlayer;
-  console.log("winner = ", winnerPlayer);
+  dialog.innerHTML = `<p>${winnerPlayer} Wins!!</p><button>Replay</button>`;
+  dialog.showModal();
+  replay(winnerPlayer);
 }
 
 function drawDisplay(){
-
+  dialog.innerHTML = `<p>!Draw!</p><button>Replay</button>`;
+  dialog.showModal();
+  replay();
 }
 
 function playGame(chance) {
@@ -193,9 +206,6 @@ function playGame(chance) {
 
 // console.log(playGame());
 
-const gridWrapper = document.querySelector(".gridWrapper");
-const gridItems = document.querySelectorAll(".gridItems");
-const dialog = document.querySelector("dialog");
 
 
 gridItems.forEach((Items) => {
